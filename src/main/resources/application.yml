@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: @project.artifactId@
+  profiles:
+    active: dev
+server:
+  port: 8761
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+info:
+  service-name: 注册中心
+---
+spring:
+  profiles: dev
+  boot:
+    admin:
+      client:
+        url: "http://localhost:8080"
+eureka:
+  instance:
+    hostname: 127.0.0.1
+    prefer-ip-address: true
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
